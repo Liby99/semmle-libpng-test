@@ -30,10 +30,13 @@ from
 where
   zeroComparison(e, info_ptr) and
   exists (AssignExpr assign |
-    assign.getLValue().(VariableAccess).getTarget() = info_ptr |
+    assign.getEnclosingFunction() = control.getEnclosingFunction() and
+    assign.getLValue().(VariableAccess).getTarget() = info_ptr and
     exists (CreateInfoCall info_call |
       assign.getRValue() = info_call)) and
   control.getControllingExpr() = e and
   destroy_write_call.getArgument(1).getValue() = "0" and
+  destroy_write_call.getEnclosingFunction() = control.getEnclosingFunction() and
   not control.getThen().getBasicBlock().contains(destroy_write_call.getBasicBlock())
 select e, control, destroy_write_call
+
