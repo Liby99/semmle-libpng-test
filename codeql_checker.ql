@@ -2,15 +2,15 @@ import cpp
 import semmle.code.cpp.dataflow.DataFlow
 
 class DestroyWriteCall extends FunctionCall {
-  DestroyWriteCall() { this.getTarget().getName() = "png_destroy_write_struct" }
-}
-
-class CreateWriteCall extends FunctionCall {
-  CreateWriteCall() { this.getTarget().getName() = "png_create_write_struct" }
+  DestroyWriteCall() {
+    this.getTarget().getName() = "png_destroy_write_struct"
+  }
 }
 
 class CreateInfoCall extends FunctionCall {
-  CreateInfoCall() { this.getTarget().getName() = "png_create_info_struct" }
+  CreateInfoCall() {
+    this.getTarget().getName() = "png_create_info_struct"
+  }
 }
 
 predicate zeroComparison(EqualityOperation e, Variable v) {
@@ -37,4 +37,3 @@ where
   destroy_write_call.getArgument(1).getValue() = "0" and
   not control.getThen().getBasicBlock().contains(destroy_write_call.getBasicBlock())
 select e, control, destroy_write_call
-
