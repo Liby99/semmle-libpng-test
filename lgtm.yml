@@ -1,0 +1,5 @@
+extraction:
+  cpp:
+     index:
+        build_command:
+        - gcc png_destroy_write_struct_test.c
