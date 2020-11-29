@@ -28,4 +28,9 @@ int test() {
   }
 
   png_destroy_write_struct(&png_ptr, NULL);
+  return 0;
+}
+
+int main() {
+  test();
 }
